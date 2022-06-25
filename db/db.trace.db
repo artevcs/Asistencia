@@ -1,0 +1,28 @@
+2022-06-21 11:40:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Metodo permitido unicamente en un query. Use execute ó executeUpdate en lugar de executeQuery
+Method is only allowed for a query. Use execute or executeUpdate instead of executeQuery; SQL statement:
+CREATE TABLE empresas(id_empresa varchar(31) PRIMARY KEY, nombre varchar(63)); [90002-199]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:502)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:427)
+	at org.h2.message.DbException.get(DbException.java:205)
+	at org.h2.message.DbException.get(DbException.java:181)
+	at org.h2.message.DbException.get(DbException.java:170)
+	at org.h2.command.Prepared.query(Prepared.java:229)
+	at org.h2.command.CommandContainer.query(CommandContainer.java:145)
+	at org.h2.command.Command.executeQuery(Command.java:202)
+	at org.h2.jdbc.JdbcStatement.executeQuery(JdbcStatement.java:85)
+	at Principal.main(Principal.java:9)
+2022-06-25 12:48:49 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Columna "id" no encontrada
+Column "id" not found [42122-199]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:451)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:427)
+	at org.h2.message.DbException.get(DbException.java:205)
+	at org.h2.message.DbException.get(DbException.java:181)
+	at org.h2.jdbc.JdbcResultSet.getColumnIndex(JdbcResultSet.java:3214)
+	at org.h2.jdbc.JdbcResultSet.get(JdbcResultSet.java:3287)
+	at org.h2.jdbc.JdbcResultSet.getString(JdbcResultSet.java:314)
+	at TablaEmpresas.rellenarTabla(TablaEmpresas.java:69)
+	at TablaEmpresas.<init>(TablaEmpresas.java:38)
+	at Turing.iniciar(Turing.java:19)
+	at Turing.main(Turing.java:10)
