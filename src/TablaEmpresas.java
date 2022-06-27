@@ -11,12 +11,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class TablaEmpresas extends JPanel {
-    Color BLANCO = new Color(255, 255, 255);
-    Color AZUL_CIELO = new Color(218, 238, 243);
+
     Color GRIS4 = new Color(242, 242, 242);
-    Color GRIS3 = new Color(217, 217, 217);
-    Color GRIS2 = new Color(200, 200, 200);
-    Color GRIS1 = new Color(64, 64, 64);
 
     int MARGEN_SUPERIOR = 20;
     int MARGEN_IZQUIERDO = 20;
@@ -24,10 +20,6 @@ public class TablaEmpresas extends JPanel {
     int SEPARACION = 2;
 
     ArrayList<Columna> columnas = new ArrayList<>();
-
-    Border borde = BorderFactory.createLineBorder(GRIS2, 1);
-    EmptyBorder padding = new EmptyBorder(0,4,0,4);
-    CompoundBorder bordeCombuesto = BorderFactory.createCompoundBorder(borde, padding);
 
     SpringLayout layOut = new SpringLayout();
 
@@ -52,12 +44,8 @@ public class TablaEmpresas extends JPanel {
     }
 
     private void crearEtiquetaEncabezado(Columna columna){
-        JLabel etiqueta = new JLabel(columna.titulo, columna.alineacion);
-        etiqueta.setBorder(bordeCombuesto);
-        etiqueta.setOpaque(true);
-        etiqueta.setBackground(GRIS3);
-        etiqueta.setForeground(GRIS1);
-        etiqueta.setPreferredSize(new Dimension(columna.ancho, ALTO_FILA));
+        Dimension dimension = new Dimension(columna.ancho, ALTO_FILA);
+        EtiquetaEncabezado etiqueta = new EtiquetaEncabezado(columna.titulo, columna.alineacion, dimension);
         int indice = columnas.indexOf(columna);
         layOut.putConstraint(SpringLayout.WEST, etiqueta, margenIzquierdo(indice), SpringLayout.WEST, this);
         layOut.putConstraint(SpringLayout.NORTH, etiqueta, margenSuperior(0), SpringLayout.NORTH, this);
@@ -80,40 +68,26 @@ public class TablaEmpresas extends JPanel {
     private void agregarFila(int fila, String id, String nombre){
         int tipo;
         if((fila % 2 ) == 0)
-            tipo = 0;
+            tipo = 1;
         else
-           tipo = 1;
+           tipo = 0;
 
         agregarEtiquetaContenido(fila, 0, id, tipo);
         agregarEtiquetaContenido(fila, 1, nombre, tipo);
-        agregarBotonContenido(fila, 2, id, "...", tipo);
+        agregarBotonContenido(fila, 2, id, tipo);
     }
 
     private void agregarEtiquetaContenido(int fila, int columna, String texto, int tipo){
-        JLabel etiqueta = new JLabel(texto, columnas.get(columna).alineacion);
-        etiqueta.setBorder(bordeCombuesto);
-        etiqueta.setOpaque(true);
-        if (tipo == 0 )
-            etiqueta.setBackground(AZUL_CIELO);
-        else
-            etiqueta.setBackground(BLANCO);
-        etiqueta.setForeground(GRIS1);
-        etiqueta.setPreferredSize(new Dimension(columnas.get(columna).ancho, ALTO_FILA));
+        Dimension dimension = new Dimension(columnas.get(columna).ancho, ALTO_FILA);
+        EtiquetaCelda etiqueta = new EtiquetaCelda(texto, columnas.get(columna).alineacion, dimension, tipo);
         layOut.putConstraint(SpringLayout.WEST, etiqueta, margenIzquierdo(columna), SpringLayout.WEST, this);
         layOut.putConstraint(SpringLayout.NORTH, etiqueta, margenSuperior(fila), SpringLayout.NORTH, this);
         this.add(etiqueta);
     }
 
-    private void agregarBotonContenido(int fila, int columna, String id, String texto, int tipo){
-        JButton boton = new JButton(texto);
-        boton.setBorder(bordeCombuesto);
-        boton.setOpaque(true);
-        if (tipo == 0 )
-            boton.setBackground(AZUL_CIELO);
-        else
-            boton.setBackground(BLANCO);
-        boton.setForeground(GRIS1);
-        boton.setPreferredSize(new Dimension(columnas.get(columna).ancho, ALTO_FILA));
+    private void agregarBotonContenido(int fila, int columna, String id, int tipo){
+        Dimension dimension = new Dimension(columnas.get(columna).ancho, ALTO_FILA);
+        BotonDetalle boton = new BotonDetalle(tipo, dimension);
         layOut.putConstraint(SpringLayout.WEST, boton, margenIzquierdo(columna), SpringLayout.WEST, this);
         layOut.putConstraint(SpringLayout.NORTH, boton, margenSuperior(fila), SpringLayout.NORTH, this);
         boton.addActionListener(new ActionListener() {

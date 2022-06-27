@@ -10,4 +10,9 @@ public class VentanaPrincipal extends JFrame {
         this.setLocationRelativeTo(null);
         this.setResizable(false);
     }
+
+    public void actualizar(){
+        this.revalidate();
+        this.repaint();
+    }
 }

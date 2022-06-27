@@ -1,8 +1,10 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.io.IOException;
 
 public class BotonDetalle extends JButton {
 
@@ -16,7 +18,7 @@ public class BotonDetalle extends JButton {
     CompoundBorder bordeCombuesto = BorderFactory.createCompoundBorder(borde, padding);
 
     public BotonDetalle(int tipo, Dimension dimension){
-        super("...");
+        super("");
         this.setBorder(bordeCombuesto);
         this.setOpaque(true);
         if (tipo == 0 )
@@ -24,7 +26,12 @@ public class BotonDetalle extends JButton {
         else
             this.setBackground(AZUL_CIELO);
         this.setForeground(GRIS1);
+        try{
+            ImageIcon iconoLupa = new ImageIcon("./images/lupa.png");
+            this.setIcon(iconoLupa);
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
         this.setPreferredSize(dimension);
     }
-
 }

@@ -1,8 +1,11 @@
+import javax.swing.*;
 import java.sql.*;
 
 public class Turing {
+
     VentanaPrincipal ventanaPrincipal;
-    MenuPrincipal menuPrincipal;
+    BarraDeMenus barraDeMenus;
+    JPanel panelActual;
     TablaEmpresas tablaEmpresas;
 
     public static void main(String[] args) throws Exception {
@@ -10,20 +13,30 @@ public class Turing {
         programaTuring.iniciar();
     }
 
-    private void iniciar() throws Exception {
+    private void iniciar(){
         ventanaPrincipal = new VentanaPrincipal();
 
-        menuPrincipal = new MenuPrincipal();
-        ventanaPrincipal.setJMenuBar(menuPrincipal);
-
-        tablaEmpresas = new TablaEmpresas();
-        ventanaPrincipal.getContentPane().add(tablaEmpresas);
-
+        barraDeMenus = new BarraDeMenus(this);
+        ventanaPrincipal.setJMenuBar(barraDeMenus);
         ventanaPrincipal.setVisible(true);
     }
 
     public static Connection getConexion() throws  Exception{
         Connection conexion = DriverManager.getConnection("jdbc:h2:file:./db/db", "huron", "orion");
         return conexion;
+    }
+
+    public void mostrarPanelEmpresas() throws Exception {
+        tablaEmpresas = new TablaEmpresas();
+        cerrarPanelActual();
+        panelActual = tablaEmpresas;
+        ventanaPrincipal.getContentPane().add(tablaEmpresas);
+        ventanaPrincipal.actualizar();
+    }
+
+    public void cerrarPanelActual(){
+        if (panelActual != null)
+            ventanaPrincipal.remove(panelActual);
+        ventanaPrincipal.actualizar();
     }
 }
